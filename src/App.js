@@ -5,14 +5,19 @@ import CourseInput from './components/CourseGoals/CourseInput/CourseInput';
 import './App.css';
 
 const App = () => {
-  const [courseGoals, setCourseGoals] = useState([
+  const [courseGoals, setCourseGoals] = useState(sessionStorage.getItem("goals_list") != null ? JSON.parse(sessionStorage.getItem("goals_list")) : [
     { text: 'This is a dummy goal!', id: 'g1' }
   ]);
+
+  const setGoalsInSessionStorage = goalsList => {
+    sessionStorage.setItem("goals_list", JSON.stringify(goalsList))
+  }
 
   const addGoalHandler = enteredText => {
     setCourseGoals(prevGoals => {
       const updatedGoals = [...prevGoals];
       updatedGoals.unshift({ text: enteredText, id: Math.random().toString() });
+      setGoalsInSessionStorage(updatedGoals);
       return updatedGoals;
     });
   };
@@ -20,6 +25,7 @@ const App = () => {
   const deleteItemHandler = goalId => {
     setCourseGoals(prevGoals => {
       const updatedGoals = prevGoals.filter(goal => goal.id !== goalId);
+      setGoalsInSessionStorage(updatedGoals);
       return updatedGoals;
     });
   };
