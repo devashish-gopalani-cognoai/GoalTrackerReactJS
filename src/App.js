@@ -39,6 +39,7 @@ const App = () => {
     <div>
       <section id="goal-form">
         <CourseInput onAddGoal={addGoalHandler} />
+        <p style={{fontSize: "12px", paddingBottom: "0.5rem"}}>PS: Click on a goal to delete it!</p>
       </section>
       <section id="goals">
         {content}
